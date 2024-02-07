@@ -1,0 +1,61 @@
+.pathlist-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 80%;
+}
+
+.pathlist-title {
+    font-weight: bold;
+    color: grey;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 95%;
+    padding: 0 2% 0 2%;
+}
+.pathlist-title p {
+    width: 100%;
+    text-align: center;
+}
+.title-border-left {
+    position: relative;
+    top: 50%;
+    width: 70%;
+    height: 0;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+}
+.title-border-right {
+    position: relative;
+    top: 50%;
+    width: 70%;
+    height: 0;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+}
+
+.pathlist-content {
+    margin-top: 3%;
+    width: 85%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5%;
+}
+
+.btn {
+    border-bottom: 1px solid hsl(0, 0%, 30%);
+    outline: none;
+    color: white;
+    font-size: 1.1em;
+    text-align: center;
+    transition: 0.5s;
+    padding: 5px;
+}
+.btn:hover {
+    background: hsl(0, 0%, 15%);
+    border-radius: 5px;
+    border-bottom: 1px solid hsl(0, 0%, 15%);
+}

@@ -1,0 +1,51 @@
+.sidebar-container {
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 28%;
+    height: 100%;
+    transition: 1s;
+}
+.hide {
+    transform: translateX(-95%);
+}
+
+.sidebar-content {
+    border-radius: 15px;
+    margin-left: 5px;
+    padding: 10% 0;
+    width: 95%;
+    height: 99%;
+    background: hsl(0, 0%, 17.5%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5%;
+    color: white;
+}
+
+.sidebar-shift-button {
+    z-index: 99;
+    border: none;
+    border-radius: 0 50% 50% 0;
+    padding: 10px;
+    width: 5%;
+    height: 7.5%;
+    background: hsl(0, 0%, 17.5%);
+    color: white;
+    position: relative;
+    cursor: pointer;
+}
+.arrow-icon {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transition: 1.5s;
+}
+.arrow-normal {
+    transform: translate(-50%, -50%);
+}
+.arrow-reverse {
+    transform: rotate(-180deg) translate(50%, 50%);
+}

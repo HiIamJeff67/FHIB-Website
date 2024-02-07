@@ -1,23 +1,47 @@
 .home-container {
+    z-index: -99;
     background: url("./images/homeBgImgae.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     width: 100%;
     height: 100%;
+    transition: .8s;
 }
 
 .layout-container {
+    z-index: -99;
     background: url("./images/bgImage.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     width: 100%;
     height: 100%;
+    transition: .8s;
 }
 
 .background-blur-container {
+    z-index: -98;
     width: 100%;
     height: 100%;
     backdrop-filter: blur(3px);
+}
+
+.bg-dim {
+    background: black;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    right: 0;
+    opacity: 0;
+    transition: .8s;
+}
+.dimer {
+    position: absolute;
+    width: 72%;
+    height: 100%;
+    right: 0;
+}
+.onDim {
+    opacity: 0.35;
 }

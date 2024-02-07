@@ -1,23 +1,22 @@
-.userbtn-container {
+.homebtn-container {
     border-radius: 10px;
-    padding: 20px;
     width: 40%;
     height: 60%;
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 25%;
+    gap: 15%;
     transition: .8s;
     cursor: pointer;
     text-align: center;
 }
 
-.userbtn-container:hover {
+.homebtn-container:hover {
     background: hsl(0, 0%, 12%);
 }
 
-.user-title {
+.home-title {
     text-align: center;
     font-size: 1.3em;
     font-weight: bold;

@@ -3,8 +3,8 @@ import "./SortFileInAlphabeticalOrderPage.css";
 
 const SortFileInAlphabeticalOrderPage = () => {
   return (
-    <div className=''>
-        Hello~~~
+    <div className='fileSorter-container'>
+        
     </div>
   )
 }

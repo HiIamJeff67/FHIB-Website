@@ -1,8 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import "./PathList.css";
 
-const PathList = () => {
+const PathList = (props) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    navigate("/sortFileInAlphabeticalOrder");
+    props.setSidebarState(false);
+  }
+
   return (
     <div className='pathlist-container'>
       <h5 className='pathlist-title'>
@@ -11,7 +18,10 @@ const PathList = () => {
         <span className='title-border-right'></span>
       </h5>
       <div className='pathlist-content'>
-        <Link to={"/sortFileInAlphabeticalOrder"} className='btn btn-1'>sort file in Alphabetical Order</Link>
+        <div className='btn btn-1'
+             onClick={handleSubmit}>
+            sort file in Alphabetical Order
+        </div>
       </div>
     </div>
   )

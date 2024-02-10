@@ -29,9 +29,9 @@ const Layout = () => {
 					</div>)
 				: (<div className='layout-container'>
 						<div className='background-blur-container'>
-							<div className={`bg-dim ${backgroundDim ? "onDim" : ""}`}></div>
+							{backgroundDim && <div className={`bg-dim ${backgroundDim ? "onDim" : ""}`}></div>}
 							<Sidebar setSidebarState={setSidebarDisplay} sidebarState={sidebarDisplay} />
-							<div className='dimer' onClick={() => setBackgroundDim(false)}></div>
+							{backgroundDim && <div className='dimer' onClick={() => setBackgroundDim(false)}></div>}
 							<Outlet />
 						</div>
 					</div>)

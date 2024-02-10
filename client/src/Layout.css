@@ -28,6 +28,7 @@
 }
 
 .bg-dim {
+    z-index: 0;
     background: black;
     position: absolute;
     width: 100%;
@@ -37,11 +38,12 @@
     transition: .8s;
 }
 .dimer {
+    z-index: 1;
     position: absolute;
     width: 72%;
     height: 100%;
     right: 0;
 }
 .onDim {
-    opacity: 0.35;
+    opacity: 0.50;
 }

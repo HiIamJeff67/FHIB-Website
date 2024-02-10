@@ -4,7 +4,7 @@ import { GoChevronRight } from "react-icons/go";
 import "./Sidebar.css";
 
 import UserContentButton from "../UserContentButton/UserContentButton.jsx";
-import HomeButton from '../HomeButtom/HomeButton.jsx';
+import HomeButton from '../HomeButton/HomeButton.jsx';
 import PathList from "../PathList/PathList.jsx";
 
 const Sidebar = (props) => {
@@ -60,9 +60,9 @@ const Sidebar = (props) => {
 		}
 	},[location])
 
-	useEffect(() => {
-		console.log(props.sidebarState);
-	},[props.sidebarState])
+	// useEffect(() => {
+	// 	console.log(props.sidebarState);
+	// },[props.sidebarState])
 	
 	const hanleSidebarButtonClicking = () => {
 		const newSidebarState = !props.sidebarState;

@@ -142,13 +142,13 @@ const SortFileInAlphabeticalOrderPage = () => {
 
   const getFileListNumber = function() {
     if (listification) return;
-    if (processedData == []) {
+    if (processedData.length === 0) {
       toast.error("There\'s nothing to listificate!");
       return;
     }
     let newProcessedData = [];
     for (let i = 0; i < processedData.length; i++) {
-      newProcessedData[i] = `${i + 1} -> ${processedData[i]}`;
+      newProcessedData[i] = `${i + 1}. ${processedData[i]}`;
     }
     setProcessedData(newProcessedData);
     setUploadFiles(newProcessedData);
@@ -158,7 +158,7 @@ const SortFileInAlphabeticalOrderPage = () => {
 
   const eliminateListNumber = function() {
     if (!listification) return;
-    if (processedData == []) {
+    if (processedData.length === 0) {
       toast.error("Something went wrong!");
       return;
     }

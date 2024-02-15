@@ -164,11 +164,11 @@ const SortFileInAlphabeticalOrderPage = () => {
     }
     let newProcessedData = [];
     for (let i = 0; i < processedData.length; i++) {
-      // 1 -> name && 10 -> name
+      // 1. name && 10. name
       newProcessedData[i] = 
         (i >= 10 
-        ? processedData[i].substring(6)
-        : processedData[i].substring(5));
+        ? processedData[i].substring(4)
+        : processedData[i].substring(3));
     }
     setProcessedData(newProcessedData);
     setUploadFiles(newProcessedData);

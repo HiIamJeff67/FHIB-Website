@@ -12,10 +12,10 @@
 .fileSorter-header {
     width: 100%;
     height: 10%;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Sixtyfour", serif;
     color: white;
     font-size: 2.5em;
-    letter-spacing: 5px;
+    letter-spacing: -5px;
     text-decoration: none;
     display: flex;
     justify-content: center;
@@ -173,6 +173,7 @@
     background: rgba(255, 255, 255, 0.8);
 }
 
+
 .sort-btn {
     z-index: 99;
     position: absolute;
@@ -180,6 +181,25 @@
     height: 35px;
     border-radius: 10px;
     right: 100px;
+    bottom: -50px;
+    background: rgba(255, 255, 255, 0.7);
+    border: none;
+    transition: .5s;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15%;
+    color: hsl(0, 0%, 30%);
+}
+
+.listing-btn {
+    z-index: 99;
+    position: absolute;
+    width: 90px;
+    height: 35px;
+    border-radius: 10px;
+    right: 200px;
     bottom: -50px;
     background: rgba(255, 255, 255, 0.7);
     border: none;

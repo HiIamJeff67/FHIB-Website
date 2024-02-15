@@ -5,7 +5,7 @@ import "./SortFileInAlphabeticalOrderPage.css";
 
 import { FaFolderClosed, FaFolderOpen } from "react-icons/fa6";
 import { IoIosCopy } from "react-icons/io";
-import { IoPencil, IoTrash, IoCheckmarkSharp } from "react-icons/io5";
+import { IoPencil, IoTrash, IoCheckmarkSharp, IoList } from "react-icons/io5";
 import { GrPowerCycle } from "react-icons/gr";
 
 const SortFileInAlphabeticalOrderPage = () => {
@@ -15,6 +15,7 @@ const SortFileInAlphabeticalOrderPage = () => {
   const [processedData, setProcessedData] = useState([]);
   const [editingIndex, setEditingIndex] = useState(-1);
   const [isCopyAll, setIsCopyAll] = useState(false);
+  const [listification, setListification] = useState(false);
 
   const handleOnDrop = (e) => {
     e.preventDefault();
@@ -76,8 +77,25 @@ const SortFileInAlphabeticalOrderPage = () => {
     }
   }
   useEffect(() => { // start to handle the files
+    if (listification) return;
     sortProcess();
   }, [uploadFiles]);
+
+  // functions of editing button
+  const handleEditFileName = function(index, newFileName) {
+    let newProcessedData = [];
+    for (let i = 0; i < processedData.length; i++) {
+      if (i === index) newProcessedData.push(newFileName);
+      else newProcessedData.push(processedData[i]);
+    }
+    setProcessedData(newProcessedData);
+  }
+  const handleEditSubmit = function(event) {
+    if (event.key === "Enter") {
+      setUploadFiles(processedData);
+      event.target.blur();
+    }
+  }
 
   // function of deleting button
   const deleteFileAt = function(index) {
@@ -122,26 +140,46 @@ const SortFileInAlphabeticalOrderPage = () => {
     }
   };
 
-  // functions of editing button
-  const handleEditFileName = function(index, newFileName) {
+  const getFileListNumber = function() {
+    if (listification) return;
+    if (processedData == []) {
+      toast.error("There\'s nothing to listificate!");
+      return;
+    }
     let newProcessedData = [];
     for (let i = 0; i < processedData.length; i++) {
-      if (i === index) newProcessedData.push(newFileName);
-      else newProcessedData.push(processedData[i]);
+      newProcessedData[i] = `${i + 1} -> ${processedData[i]}`;
     }
     setProcessedData(newProcessedData);
+    setUploadFiles(newProcessedData);
+    setListification(true);
+    toast.success("Listed!");
   }
-  const handleEditSubmit = function(event) {
-    if (event.key === "Enter") {
-      setUploadFiles(processedData);
-      event.target.blur();
+
+  const eliminateListNumber = function() {
+    if (!listification) return;
+    if (processedData == []) {
+      toast.error("Something went wrong!");
+      return;
     }
+    let newProcessedData = [];
+    for (let i = 0; i < processedData.length; i++) {
+      // 1 -> name && 10 -> name
+      newProcessedData[i] = 
+        (i >= 10 
+        ? processedData[i].substring(6)
+        : processedData[i].substring(5));
+    }
+    setProcessedData(newProcessedData);
+    setUploadFiles(newProcessedData);
+    setListification(false);
+    toast.success("Delisted!");
   }
 
   return (
     <div className='fileSorter-container'>
       <Toaster/>
-      <h1 className='fileSorter-header'>將檔案依字母排序</h1>
+      <h1 className='fileSorter-header'>Alphabetical Sort</h1>
       <div className='fileSorter-content'>
         <div className='file-input-area'>
           <div className='folder-icon-switcher'
@@ -181,11 +219,6 @@ const SortFileInAlphabeticalOrderPage = () => {
                 </div>
               ))}
             </div>
-            <button className='copy-all-btn' onClick={handleCopyAllButtonClick}>
-              {!isCopyAll
-                ? <><IoIosCopy /><p>Copy</p></>
-                : <><IoCheckmarkSharp /><p>Copied</p></>}
-            </button>
             <button className='sort-btn' onClick={() => {
               toast("Sorting");
               setIsSorting(true);
@@ -199,6 +232,19 @@ const SortFileInAlphabeticalOrderPage = () => {
               {!isSorting
                 ? <><GrPowerCycle /><p>Sort</p></>
                 : <><IoCheckmarkSharp /><p>Sorted</p></>}
+            </button>
+            <button className='copy-all-btn' onClick={handleCopyAllButtonClick}>
+              {!isCopyAll
+                ? <><IoIosCopy /><p>Copy</p></>
+                : <><IoCheckmarkSharp /><p>Copied</p></>}
+            </button>
+            <button className='listing-btn' onClick={() => {
+              if (listification) eliminateListNumber();
+              else getFileListNumber();
+            }}>
+                {!listification
+                  ?<><IoList /><p>List</p></>
+                  :<><IoCheckmarkSharp />Listed</>}
             </button>
           </div>
         </div>

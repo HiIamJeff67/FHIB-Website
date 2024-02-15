@@ -119,7 +119,7 @@ const SortFileInAlphabeticalOrderPage = () => {
     const textsToCopy = processedData.join(`\n`);
     if (textsToCopy === "") {
       setIsCopyAll(false);
-      toast.error('There\'s nothing to copy!');
+      toast.error("There's nothing to copy!");
       return;
     }
     setIsCopyAll(true);
@@ -143,7 +143,7 @@ const SortFileInAlphabeticalOrderPage = () => {
   const getFileListNumber = function() {
     if (listification) return;
     if (processedData.length === 0) {
-      toast.error("There\'s nothing to listificate!");
+      toast.error("There's nothing to listificate!");
       return;
     }
     let newProcessedData = [];

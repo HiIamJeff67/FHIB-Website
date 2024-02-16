@@ -7,6 +7,7 @@ import { FaFolderClosed, FaFolderOpen } from "react-icons/fa6";
 import { IoIosCopy } from "react-icons/io";
 import { IoPencil, IoTrash, IoCheckmarkSharp, IoList } from "react-icons/io5";
 import { GrPowerCycle } from "react-icons/gr";
+import { FiType, FiFile } from "react-icons/fi";
 
 const SortFileInAlphabeticalOrderPage = () => {
   const [isHoverIcon, setIsHoverIcon] = useState(false);
@@ -16,6 +17,8 @@ const SortFileInAlphabeticalOrderPage = () => {
   const [editingIndex, setEditingIndex] = useState(-1);
   const [isCopyAll, setIsCopyAll] = useState(false);
   const [listification, setListification] = useState(false);
+  const [onTypeMode, setOnTypeMode] = useState(false);
+  const [inputText, setInputText] = useState("");
 
   const handleOnDrop = (e) => {
     e.preventDefault();
@@ -80,6 +83,15 @@ const SortFileInAlphabeticalOrderPage = () => {
     if (listification) return;
     sortProcess();
   }, [uploadFiles]);
+
+  // function of submit text in textarea
+  const handleTextSubmit = function() {
+    const uploadText = inputText.split('\n');
+    setProcessedData(uploadText);
+    setUploadFiles(uploadText);
+    setInputText("");
+    setOnTypeMode(false);
+  }
 
   // functions of editing button
   const handleEditFileName = function(index, newFileName) {
@@ -182,15 +194,35 @@ const SortFileInAlphabeticalOrderPage = () => {
       <h1 className='fileSorter-header'>Alphabetical Sort</h1>
       <div className='fileSorter-content'>
         <div className='file-input-area'>
-          <div className='folder-icon-switcher'
-               onDrop={handleOnDrop}
-               onDragOver={handleOnDragOver}
-               onDragLeave={handleOnDragLeave}
-               onMouseEnter={() => setIsHoverIcon(true)}
-               onMouseLeave={() => setIsHoverIcon(false)}>
+          {onTypeMode
+            ? <textarea type="text"
+                        className='fileName-input-area'
+                        defaultValue={inputText}
+                        onChange={(e) => setInputText(e.target.value)}/>
+            : <>
+                <div className='folder-icon-switcher'
+                    onDrop={handleOnDrop}
+                    onDragOver={handleOnDragOver}
+                    onDragLeave={handleOnDragLeave}
+                    onMouseEnter={() => setIsHoverIcon(true)}
+                    onMouseLeave={() => setIsHoverIcon(false)}>
+                </div>
+                {isHoverIcon ? <FaFolderOpen size={150} className='folder-open-icon'/>
+                            : <FaFolderClosed size={150} className='folder-close-icon'/>}
+          </>}
+          <div className='file-btn-wrapper'>
+            {onTypeMode &&
+              <button className='text-submit-btn'
+                      onClick={handleTextSubmit}>
+                <><IoCheckmarkSharp /><p>Submit</p></>
+              </button>}
+            <button className='type-mode-btn'
+                    onClick={() => setOnTypeMode(!onTypeMode)}>
+              {onTypeMode
+                ? <><FiFile /><p>FileMode</p></>
+                : <><FiType /><p>TypeMode</p></>}
+            </button>
           </div>
-          {isHoverIcon ? <FaFolderOpen size={150} className='folder-open-icon'/>
-                       : <FaFolderClosed size={150} className='folder-close-icon'/>}
         </div>
         <div className='file-output-area'>
           <div className='file-container-wrapper'>
@@ -219,33 +251,35 @@ const SortFileInAlphabeticalOrderPage = () => {
                 </div>
               ))}
             </div>
-            <button className='sort-btn' onClick={() => {
-              toast("Sorting");
-              setIsSorting(true);
-              setUploadFiles(processedData);
-              sortProcess();
-              setTimeout(() => {
-                toast.success("Sorted!");
-                setIsSorting(false);
-              }, 1500);
-            }}>
-              {!isSorting
-                ? <><GrPowerCycle /><p>Sort</p></>
-                : <><IoCheckmarkSharp /><p>Sorted</p></>}
-            </button>
-            <button className='copy-all-btn' onClick={handleCopyAllButtonClick}>
-              {!isCopyAll
-                ? <><IoIosCopy /><p>Copy</p></>
-                : <><IoCheckmarkSharp /><p>Copied</p></>}
-            </button>
-            <button className='listing-btn' onClick={() => {
-              if (listification) eliminateListNumber();
-              else getFileListNumber();
-            }}>
-                {!listification
-                  ?<><IoList /><p>List</p></>
-                  :<><IoCheckmarkSharp />Listed</>}
-            </button>
+            <div className='file-btn-wrapper'>
+              <button className='sort-btn' onClick={() => {
+                toast("Sorting");
+                setIsSorting(true);
+                setUploadFiles(processedData);
+                sortProcess();
+                setTimeout(() => {
+                  toast.success("Sorted!");
+                  setIsSorting(false);
+                }, 1500);
+              }}>
+                {!isSorting
+                  ? <><GrPowerCycle /><p>Sort</p></>
+                  : <><IoCheckmarkSharp /><p>Sorted</p></>}
+              </button>
+              <button className='copy-all-btn' onClick={handleCopyAllButtonClick}>
+                {!isCopyAll
+                  ? <><IoIosCopy /><p>Copy</p></>
+                  : <><IoCheckmarkSharp /><p>Copied</p></>}
+              </button>
+              <button className='listing-btn' onClick={() => {
+                if (listification) eliminateListNumber();
+                else getFileListNumber();
+              }}>
+                  {!listification
+                    ?<><IoList /><p>List</p></>
+                    :<><IoCheckmarkSharp />Listed</>}
+              </button>
+            </div>
           </div>
         </div>
       </div>

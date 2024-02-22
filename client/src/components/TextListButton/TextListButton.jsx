@@ -36,7 +36,9 @@ const TextListButton = ({
 		let count = 0;
 		for (let i = 0; i < numOfContexts; i++) {
 			// 1. name
-			if (unprocessedContexts[i].substring(1, 3) === ". "
+			if ((unprocessedContexts[i].substring(1, 3) === ". "
+				|| unprocessedContexts[i].substring(2, 4) === ". "
+				|| unprocessedContexts[i].substring(3, 5) === ". ")
 					&& isNumber(unprocessedContexts[i][0])) {
 				count++;
 			} else {

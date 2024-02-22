@@ -1,0 +1,63 @@
+.processed-file {
+    width: 90%;
+    min-height: 72px;   /* !important for using min-height, NOT height */
+    background: rgba(255, 255, 255, 0.30);
+    border-radius: 15px;
+    display: grid;
+    grid-template-columns: 1fr 0.1fr 0.1fr 0.1fr;
+    padding: 0 2% 0 5%;
+}
+
+.editing-file-name {
+    width: 92.5%;
+    height: 80%;
+    align-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #9cd9ee;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    font-weight: 700;
+    letter-spacing: 2px;
+    overflow: hidden;
+    word-break: break-all;
+    background: transparent;
+    border: none;
+    outline: none;
+    border-radius: 15px;
+    padding-left: 10px;
+}
+
+.editing-file-name:focus {
+    border: 2px solid #9cd9ee;
+}
+
+.file-name {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    color: #9cd9ee;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    overflow: hidden;
+    word-break: break-all;
+    padding-left: 10px;
+}
+
+.file-btn {
+    height: 25px;
+    aspect-ratio: 1/1;
+    align-self: center;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    color: hsl(0, 0%, 80%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+}

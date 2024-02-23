@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import "./SortFileInAlphabeticalOrderPage.css";
 
-import { sortFileInAlphabeticalOrder } from '../../actions/fileSorter.js';
+import { sortFileInAlphabeticalOrder, sortFileInAlphabeticalOrderInSpotifyMode } from '../../actions/fileSorter.js';
 import TextListButton from '../../components/TextListButton/TextListButton.jsx';
 import TypeOrTextModeButton from '../../components/TypeOrTextModeButton/TypeOrTextModeButton.jsx'
 import TextSubmitButton from '../../components/TextSubmitButton/TextSubmitButton.jsx';
@@ -14,7 +14,9 @@ import ListButton from '../../components/ListButton/ListButton.jsx';
 
 import { FaFolderClosed, FaFolderOpen } from "react-icons/fa6";
 
-const SortFileInAlphabeticalOrderPage = () => {
+const SortFileInAlphabeticalOrderPage = ({
+  isSpotifyFile
+}) => {
   const [isHoverIcon, setIsHoverIcon] = useState(false);
   const [uploadFiles, setUploadFiles] = useState([]);
   const [isSorting, setIsSorting] = useState(false);
@@ -40,7 +42,10 @@ const SortFileInAlphabeticalOrderPage = () => {
 
   const sortProcess = function() {
     if (uploadFiles !== undefined && uploadFiles.length !== 0) {
-      setProcessedData(sortFileInAlphabeticalOrder(uploadFiles));
+      const sortedFiles = (isSpotifyFile)
+        ? sortFileInAlphabeticalOrderInSpotifyMode(uploadFiles)
+        : sortFileInAlphabeticalOrder(uploadFiles);
+      setProcessedData(sortedFiles);
     }
   }
   useEffect(() => { // start to handle the files
@@ -101,7 +106,10 @@ const SortFileInAlphabeticalOrderPage = () => {
           <div className='file-container-wrapper'>
             <div className='file-container'>
               {processedData.map((data, index) => (
-                <>  {/* fix the key here in the future */}
+                <div key={index} 
+                     style={{width: "100%", 
+                             display: "flex",
+                             justifyContent: "center"}}>
                   <SingleFileDetails 
                     data={data}
                     index={index} // === key
@@ -110,7 +118,7 @@ const SortFileInAlphabeticalOrderPage = () => {
                     setUploadFiles={setUploadFiles}
                     toast={toast}
                   />
-                </>
+                </div>
               ))}
             </div>
             <div className='file-btn-wrapper'>

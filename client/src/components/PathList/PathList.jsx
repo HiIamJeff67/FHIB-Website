@@ -5,8 +5,12 @@ import "./PathList.css";
 const PathList = (props) => {
   const navigate = useNavigate();
 
-  const handleSubmit = () => {
+  const goToNormalAlphabeticalOrderPage = () => {
     navigate("/sortFileInAlphabeticalOrder");
+    props.setSidebarState(false);
+  }
+  const switchSpotifyAlphabeticalOrderPage = () => {
+    navigate("/sortSpotifyFileInAlphabeticalOrder");
     props.setSidebarState(false);
   }
 
@@ -19,12 +23,16 @@ const PathList = (props) => {
       </h5>
       <div className='pathlist-content'>
         <div className='btn btn-1'
-             onClick={handleSubmit}>
+             onClick={goToNormalAlphabeticalOrderPage}>
             sort file in Alphabetical Order
+        </div>
+        <div className='btn btn-2'
+             onClick={switchSpotifyAlphabeticalOrderPage}>
+            sort Spotify file in Alphabetical Order
         </div>
       </div>
     </div>
   )
 }
 
-export default PathList
+export default PathList;

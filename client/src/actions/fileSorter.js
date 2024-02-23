@@ -1,3 +1,8 @@
+const _SPOTIFY_SIGN = "_-_";
+const _SPOTIFY_SIGN_LENGTH = 3;
+const _MP3_STRING_LENGTH = 4; // .mp3
+
+
 const stringArrayToValueArray = function(stringArray) {
     let values = [], len = stringArray.length;
     let smallestLen = stringArray[0].length;
@@ -86,4 +91,34 @@ export const sortFileInAlphabeticalOrder = function(files) {  // String[] files;
     let values = stringArrayToValueArray(processedFiles);
     const sortedFile = quickSort(values, processedFiles);
     return sortedFile;
+}
+
+export const sortFileInAlphabeticalOrderInSpotifyMode = function(spotifyFiles) {
+  let processedFiles = [];
+  for (let i = 0; i < spotifyFiles.length; i++) {
+    let processedFile = [];
+    if (typeof spotifyFiles[i] === "object") {
+      const spotifyFileName = spotifyFiles[i].name;
+      for (let p = 0; p + _SPOTIFY_SIGN_LENGTH < spotifyFileName.length; p++) {
+        if (spotifyFileName.substring(p, p + _SPOTIFY_SIGN_LENGTH) === _SPOTIFY_SIGN) {
+          let currentPosition = p + _SPOTIFY_SIGN_LENGTH;
+          processedFile.push(spotifyFileName.substring(currentPosition, spotifyFileName.length - _MP3_STRING_LENGTH));
+        }
+      }
+      processedFiles.push(processedFile.join(''));
+    } else {
+      for (let p = 0; p + _SPOTIFY_SIGN_LENGTH < spotifyFiles[i].length; p++) {
+        if (spotifyFiles[i].substring(p, p + _SPOTIFY_SIGN_LENGTH) === _SPOTIFY_SIGN) {
+          let currentPosition = p + _SPOTIFY_SIGN_LENGTH;
+          processedFile.push(spotifyFiles[i].substring(currentPosition, currentPosition + _MP3_STRING_LENGTH));
+        }
+      }
+      processedFiles.push(processedFile.join(''));
+    }
+  }
+
+  // sort the file with weight (len - position) * 100
+  let values = stringArrayToValueArray(processedFiles);
+  const sortedFile = quickSort(values, processedFiles);
+  return sortedFile;
 }

@@ -9,7 +9,14 @@ const App = () => {
   return (
     <Routes>
         <Route path='/' element={<Layout />}>
-            <Route path='/sortFileInAlphabeticalOrder' element={<SortFileInAlphabeticalOrderPage />} />
+            <Route path='/sortFileInAlphabeticalOrder' 
+                   element={<SortFileInAlphabeticalOrderPage 
+                   isSpotifyFile={false}/>}
+            />
+            <Route path='/sortSpotifyFileInAlphabeticalOrder' 
+                   element={<SortFileInAlphabeticalOrderPage 
+                   isSpotifyFile={true}/>} 
+            />
         </Route>
     </Routes>
   )

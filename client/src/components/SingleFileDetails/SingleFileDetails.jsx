@@ -86,7 +86,7 @@ SingleFileDetails.propTypes = {
 	processedData: PropTypes.array,
 	setProcessedData: PropTypes.func,
 	setUploadFiles: PropTypes.func,
-	toast: PropTypes.object
+	toast: PropTypes.func
 }
 
 export default SingleFileDetails;

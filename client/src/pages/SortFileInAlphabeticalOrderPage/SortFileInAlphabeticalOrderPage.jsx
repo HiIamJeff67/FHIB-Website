@@ -48,10 +48,10 @@ const SortFileInAlphabeticalOrderPage = ({
       setProcessedData(sortedFiles);
     }
   }
-  useEffect(() => { // start to handle the files
-    if (listification) return;
-    sortProcess();
-  }, [uploadFiles]);
+  // useEffect(() => { // start to handle the files
+  //   if (listification) return;
+  //   sortProcess();
+  // }, [uploadFiles]);
 
   return (
     <div className='fileSorter-container'>
@@ -96,10 +96,12 @@ const SortFileInAlphabeticalOrderPage = ({
                 />
               </>
             }
-            <TypeOrTextModeButton 
-              onTypeMode={onTypeMode}
-              setOnTypeMode={setOnTypeMode}
-            />
+            { !isSpotifyFile && 
+                <TypeOrTextModeButton 
+                  onTypeMode={onTypeMode}
+                  setOnTypeMode={setOnTypeMode}
+                />
+            }
           </div>
         </div>
         <div className='file-output-area'>

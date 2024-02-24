@@ -62,9 +62,72 @@ export const isEnglishOrNumber = function(character) {
     return englishRegex.test(character) || numberRegex.test(character);
 }
 
+const findFirstDotIndex = function(string) {
+  for (let i = 0; i < string.length; i++) {
+    if (string[i] === ".") return i;
+  }
+  return -1;
+}
+
+// if true => the whole thing in files must be listed
+export const isFilesOrContextsListed = function(data) {
+  let filesName = [];
+  for (let i = 0; i < data.length; i++) {
+    if (typeof data[i] === "object") filesName[i] = data[i].name;
+    else filesName[i] = data[i];
+  }
+
+  let countListedFiles = 0;
+  for (let i = 0; i < filesName.length; i++) {
+    const currentFileDotIndex = findFirstDotIndex(filesName[i]);
+    if (currentFileDotIndex === -1) return false;
+    const number = filesName[i].substring(0, currentFileDotIndex);
+    if (!/\d/.test(number) 
+      || filesName[i].substring(currentFileDotIndex, currentFileDotIndex + 2) !== ". ") {
+        return false;
+    }
+    countListedFiles += 1;
+  }
+  return (countListedFiles === filesName.length);
+}
+
+export const eliminateContextListSign = function(context) {
+  let contexts = [];
+  if (typeof context === "string") contexts = context.split('\n');
+  else  contexts = context;
+		
+  let newContexts = [], newPtr = 0;
+	for (let i = 0; i < contexts.length; i++) {
+		// 1. name
+		if (contexts[i] !== undefined && contexts[i].length !== 0) {
+      let currentContextDotIndex = findFirstDotIndex(contexts[i]);
+      if (contexts[i][currentContextDotIndex + 1] === " ") currentContextDotIndex++;
+			newContexts[newPtr++] = contexts[i].substring(currentContextDotIndex + 1);
+		}
+	}
+  return newContexts;
+}
+
+export const getContextListSign = function(context) {
+  let contexts = [];
+  if (typeof context === "string") contexts = context.split('\n');
+  else  contexts = context;
+
+  let newContexts = [];
+  for (let i = 0; i < contexts.length; i++) {
+    newContexts[i] = `${i + 1}. ${contexts[i]}`;
+  }
+  return newContexts;
+}
+
 // function to sort the fileName in alphabetical order
 export const sortFileInAlphabeticalOrder = function(files) {  // String[] files;
     // make sure that there is no "." character in the String(bcs we will delete all the character after it)
+    let listFlag = false;
+    if (isFilesOrContextsListed(files)) {
+      eliminateContextListSign(files);
+      listFlag = true;
+    }
     let processedFiles = [];
     for (let i = 0; i < files.length; i++) {
       let processedFile = [];
@@ -85,6 +148,9 @@ export const sortFileInAlphabeticalOrder = function(files) {  // String[] files;
         }
         processedFiles.push(processedFile.join(''));
       }
+    }
+    if (listFlag) {
+      processedFiles = getContextListSign(processedFiles);
     }
 
     // sort the file with weight (len - position) * 100

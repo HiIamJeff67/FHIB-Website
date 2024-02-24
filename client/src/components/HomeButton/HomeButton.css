@@ -16,8 +16,24 @@
     background: hsl(0, 0%, 12%);
 }
 
+.home-icon {
+    font-size: 30px;
+}
+
 .home-title {
     text-align: center;
     font-size: 1.3em;
     font-weight: bold;
+}
+
+@media (max-width: 600px) {
+    .homebtn-container {
+        padding: 10px;
+    }
+    .home-icon {
+        font-size: 15px;
+    }
+    .home-title {
+        display: none;
+    }
 }

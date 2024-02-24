@@ -6,7 +6,7 @@ import { HiMiniHome } from "react-icons/hi2";
 const HomeButton = (props) => {
   return (
     <Link className='homebtn-container' to={"/"} onClick={() => props.setSidebarState(false)}>
-      <HiMiniHome size={30} className='home-icon'/>
+      <HiMiniHome className='home-icon'/>
       <p className='home-title'>Home</p>
     </Link>
   )

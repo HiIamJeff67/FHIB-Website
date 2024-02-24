@@ -24,11 +24,11 @@ const PathList = (props) => {
       <div className='pathlist-content'>
         <div className='btn btn-1'
              onClick={goToNormalAlphabeticalOrderPage}>
-            sort file in Alphabetical Order
+            Sort Files
         </div>
         <div className='btn btn-2'
              onClick={switchSpotifyAlphabeticalOrderPage}>
-            sort Spotify file in Alphabetical Order
+            Sort Spotify Files
         </div>
       </div>
     </div>

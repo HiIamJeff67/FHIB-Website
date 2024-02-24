@@ -60,3 +60,9 @@
     border-radius: 5px;
     border-bottom: 1px solid hsl(0, 0%, 12%);
 }
+
+@media (max-width: 600px) {
+    .btn {
+        font-size: .8em;
+    }
+}

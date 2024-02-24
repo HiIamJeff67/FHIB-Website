@@ -55,6 +55,7 @@
     color: white;
     font-weight: 500;
     resize: none;
+    padding: 5%;
 }
 .fileName-input-area::-webkit-scrollbar {
     background: transparent;
@@ -101,7 +102,7 @@
     align-items: center;
     gap: 15px;
     padding: 5% 0 5% 0;
-    position: relative;
+    position: absolute;
     overflow-y: auto;
 }
 .file-container::-webkit-scrollbar {
@@ -140,6 +141,7 @@
     }
     .fileSorter-content {
         flex-direction: column;
+        justify-content: space-between;
     }
     .file-btn-wrapper {
         bottom: -20%;

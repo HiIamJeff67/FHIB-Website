@@ -1,6 +1,6 @@
 .userbtn-container {
     border-radius: 10px;
-    padding: 20px;
+    padding: 13px;
     width: 40%;
     height: 60%;
     color: white;
@@ -17,8 +17,24 @@
     background: hsl(0, 0%, 12%);
 }
 
+.user-icon {
+    font-size: 30px;
+}
+
 .user-title {
     text-align: center;
     font-size: 1.3em;
     font-weight: bold;
+}
+
+@media (max-width: 600px) {
+    .userbtn-container {
+        padding: 12.5px;
+    }
+    .user-icon {
+        font-size: 15px;
+    }
+    .user-title {
+        display: none;
+    }
 }

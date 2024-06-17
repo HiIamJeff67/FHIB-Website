@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from "prop-types";
 
 import { eliminateContextListSign, getContextListSign, isFilesOrContextsListed } from "../../actions/fileSorter.js";
@@ -6,41 +6,44 @@ import { eliminateContextListSign, getContextListSign, isFilesOrContextsListed }
 import { IoCheckmarkSharp, IoList } from "react-icons/io5";
 import "./ListButton.css";
 
+import { FileSorterContext } from '../../context/FileSorterContext.jsx';
+
 const ListButton = ({ 
-	listification, 
-	setListification, 
-	processData, 
-	setProcessData, 
-	setUploadFiles, 
 	toast 
 }) => {
+
+	const {
+		listification, setListification,
+		processedData, setProcessedData,
+		uploadFiles, setUploadFiles
+	} = useContext(FileSorterContext);
 	useEffect(() => {
-		setListification(isFilesOrContextsListed(processData));
-	}, [processData]);
+		setListification(isFilesOrContextsListed(processedData));
+	}, [processedData]);
 
 	const eliminateDataListNumber = function() {
 		if (!listification) return;
-		if (processData.length === 0) {
+		if (processedData.length === 0) {
 			toast.error("Something went wrong!");
 			return;
 		}
-		let newProcessedData = eliminateContextListSign(processData);
-		
-		setProcessData(newProcessedData);
-		setUploadFiles(newProcessedData);
+		let newProcessedData = eliminateContextListSign(processedData);
+		setProcessedData(newProcessedData);
+		// setUploadFiles(newProcessedData);
 		setListification(false);
 		toast.success("Delisted!");
 	}
 
 	const getFileListNumber = function() {
 		if (listification) return;
-		if (processData.length === 0) {
+		if (processedData.length === 0) {
 			toast.error("There's nothing to listificate!");
 			return;
 		}
-		let newProcessedData = getContextListSign(processData);
-		setProcessData(newProcessedData);
-		setUploadFiles(newProcessedData);
+		
+		let newProcessedData = getContextListSign(processedData);
+		setProcessedData(newProcessedData);
+		// setUploadFiles(newProcessedData);
 		setListification(true);
 		toast.success("Listed!");
 	}
@@ -60,11 +63,6 @@ const ListButton = ({
 }
 
 ListButton.propTypes = {
-	listification: PropTypes.bool,
-	setListification: PropTypes.func,
-	processData: PropTypes.array,
-	setProcessData: PropTypes.func,
-	setUploadFiles: PropTypes.func,
 	toast: PropTypes.func
 }
 

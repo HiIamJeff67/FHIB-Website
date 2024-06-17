@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from "prop-types";
 
 import { GrPowerCycle } from "react-icons/gr";
 import { IoCheckmarkSharp } from "react-icons/io5";
 import "./FileNameSortButton.css";
 
+import { FileSorterContext } from '../../context/FileSorterContext';
+
 const FileNameSortButton = ({
-    isSorting,
-    setIsSorting,
-    processedData,
-    setUploadFiles,
     sortProcess,
     toast
 }) => {
+
+  const {
+    isSorting, setIsSorting,
+    processedData,
+    setUploadFiles,
+  } = useContext(FileSorterContext);
+
   return (
     <button className='sort-btn' onClick={() => {
         toast("Sorting");
@@ -32,10 +37,6 @@ const FileNameSortButton = ({
 }
 
 FileNameSortButton.propTypes = {
-    isSorting: PropTypes.bool,
-    setIsSorting: PropTypes.func,
-    processedData: PropTypes.array,
-    setUploadFiles: PropTypes.func,
     sortProcess: PropTypes.func,
     toast: PropTypes.func
 }

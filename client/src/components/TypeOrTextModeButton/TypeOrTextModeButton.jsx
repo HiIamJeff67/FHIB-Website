@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from "prop-types";
 
 import { FiType, FiFile } from "react-icons/fi";
 import "./TypeOrTextModeButton.css";
 
-const TypeOrTextModeButton = ({
-    onTypeMode,
-    setOnTypeMode,
-}) => {
+import { FileSorterContext } from '../../context/FileSorterContext';
+
+const TypeOrTextModeButton = () => {
+
+  const { onTypeMode, setOnTypeMode } = useContext(FileSorterContext);
+
   return (
     <button className='type-text-mode-btn'
             onClick={() => setOnTypeMode(!onTypeMode)}>
@@ -16,11 +18,6 @@ const TypeOrTextModeButton = ({
 				: <><FiType /><p>TypeMode</p></>}
     </button>
   )
-}
-
-TypeOrTextModeButton.propType = {
-  onTypeMode: PropTypes.bool,
-  setOnTypeMode: PropTypes.func
 }
 
 export default TypeOrTextModeButton

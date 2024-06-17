@@ -1,17 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from "prop-types";
 
 import { IoCheckmarkSharp } from "react-icons/io5";
 import "./TextSubmitButton.css";
 
+import { FileSorterContext } from '../../context/FileSorterContext';
+
 const TextSubmitButton = ({
-	inputText,
-	setInputText,
-	setProcessedData,
-	setUploadFiles,
-	setOnTypeMode,
 	toast
 }) => {
+  
+  const {
+    inputText, setInputText,
+    setProcessedData,
+    setUploadFiles,
+    setOnTypeMode
+  } = useContext(FileSorterContext);
+
 	// function of submit text in textarea
   const handleTextSubmit = function() {
     const uploadText = inputText.split('\n').filter(element => element !== "");
@@ -20,6 +25,7 @@ const TextSubmitButton = ({
       setUploadFiles(uploadText);
     } else {
       toast.error("Please Type Some Text to Submit!")
+      return;
     }
     setInputText("");
     setOnTypeMode(false);
@@ -34,11 +40,6 @@ const TextSubmitButton = ({
 }
 
 TextSubmitButton.propTypes = {
-	inputText: PropTypes.string,
-	setInputText: PropTypes.func,
-	setProcessedData: PropTypes.func,
-	setUploadFiles: PropTypes.func,
-	setOnTypeMode: PropTypes.func,
 	toast: PropTypes.func
 }
 

@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from "prop-types";
 
 import { IoTrash, IoCheckmarkSharp } from "react-icons/io5";
 import "./ClearButton.css";
 
+import { FileSorterContext } from '../../context/FileSorterContext';
+
 const ClearButton = ({
-	processedData,
-	setProcessedData,
-	setUploadFiles,
 	toast
 }) => {
+
+	const {
+		processedData, setProcessedData,
+		setUploadFiles
+	} = useContext(FileSorterContext);
 	const [isClean, setIsClean] = useState(false);
 
 	const handleClickClearButtn = function() {
@@ -35,9 +39,6 @@ const ClearButton = ({
 }
 
 ClearButton.propTypes = {
-	processedData: PropTypes.array,
-	setProcessedData: PropTypes.func,
-	setUploadFiles: PropTypes.func,
 	toast: PropTypes.func
 }
 

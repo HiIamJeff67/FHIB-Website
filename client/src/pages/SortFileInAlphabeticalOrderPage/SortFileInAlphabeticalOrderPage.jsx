@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import "./SortFileInAlphabeticalOrderPage.css";
 
@@ -14,16 +14,21 @@ import ListButton from '../../components/ListButton/ListButton.jsx';
 
 import { FaFolderClosed, FaFolderOpen } from "react-icons/fa6";
 
+import { FileSorterContext } from '../../context/FileSorterContext.jsx';
+
+
 const SortFileInAlphabeticalOrderPage = ({
   isSpotifyFile
 }) => {
-  const [isHoverIcon, setIsHoverIcon] = useState(false);
-  const [uploadFiles, setUploadFiles] = useState([]);
-  const [isSorting, setIsSorting] = useState(false);
-  const [processedData, setProcessedData] = useState([]);
-  const [listification, setListification] = useState(false);
-  const [onTypeMode, setOnTypeMode] = useState(false);
-  const [inputText, setInputText] = useState("");
+
+  const {
+    onTypeMode,
+    isHoverIcon, setIsHoverIcon,
+    listification,
+    inputText, setInputText,
+    uploadFiles, setUploadFiles,
+    processedData, setProcessedData
+  } = useContext(FileSorterContext);
 
   const handleOnDrop = (e) => {
     e.preventDefault();
@@ -47,11 +52,12 @@ const SortFileInAlphabeticalOrderPage = ({
         : sortFileInAlphabeticalOrder(uploadFiles);
       setProcessedData(sortedFiles);
     }
+    // console.log("sorting...")
   }
-  // useEffect(() => { // start to handle the files
-  //   if (listification) return;
-  //   sortProcess();
-  // }, [uploadFiles]);
+  useEffect(() => { // start to handle the files
+    if (listification) return;
+    sortProcess();
+  }, [uploadFiles]);
 
   return (
     <div className='fileSorter-container'>
@@ -78,77 +84,45 @@ const SortFileInAlphabeticalOrderPage = ({
           <div className='file-btn-wrapper'>
             {onTypeMode &&
               <>
-                <TextSubmitButton 
-                  inputText={inputText}
-                  setInputText={setInputText}
-                  setProcessedData={setProcessedData}
-                  setUploadFiles={setUploadFiles}
-                  setOnTypeMode={setOnTypeMode}
-                  toast={toast}
-                />
-                <TextListButton 
-                  inputText={inputText}
-                  setInputText={setInputText}
-                  setProcessedData={setProcessedData}
-                  setUploadFiles={setUploadFiles}
-                  setOnTypeMode={setOnTypeMode}
-                  toast={toast}
-                />
+                <TextSubmitButton toast={toast}/>
+                <TextListButton toast={toast}/>
               </>
             }
             { !isSpotifyFile && 
-                <TypeOrTextModeButton 
-                  onTypeMode={onTypeMode}
-                  setOnTypeMode={setOnTypeMode}
-                />
+                <TypeOrTextModeButton />
             }
           </div>
         </div>
         <div className='file-output-area'>
           <div className='file-container-wrapper'>
             <div className='file-container'>
-              {processedData.map((data, index) => (
-                <div key={index} 
-                     style={{width: "100%", 
-                             display: "flex",
-                             justifyContent: "center"}}>
-                  <SingleFileDetails 
-                    data={data}
-                    index={index} // === key
-                    processedData={processedData}
-                    setProcessedData={setProcessedData}
-                    setUploadFiles={setUploadFiles}
-                    toast={toast}
-                  />
-                </div>
-              ))}
+              {processedData
+                ? <>
+                  {processedData.map((data, index) => (
+                    <div key={index} 
+                        style={{width: "100%", 
+                                display: "flex",
+                                justifyContent: "center"}}>
+                      <SingleFileDetails 
+                        data={data}
+                        index={index} // === key
+                        processedData={processedData}
+                        setProcessedData={setProcessedData}
+                        setUploadFiles={setUploadFiles}
+                        toast={toast}
+                      />
+                    </div>
+                  ))}
+                </>
+                : <></>
+              }
+              
             </div>
             <div className='file-btn-wrapper'>
-              <ClearButton 
-                processedData={processedData}
-                setProcessedData={setProcessedData}
-                setUploadFiles={setUploadFiles}
-                toast={toast}/>
-              <FileNameSortButton 
-                isSorting={isSorting}
-                setIsSorting={setIsSorting}
-                processedData={processedData}
-                setUploadFiles={setUploadFiles}
-                sortProcess={sortProcess}
-                toast={toast}
-              />
-              <CopyAllTextButton 
-                processedData={processedData}
-                toast={toast}
-              />
-              <ListButton 
-                listification={listification}
-                setListification={setListification}
-                processData={processedData}
-                setProcessData={setProcessedData}
-                setUploadFiles={setUploadFiles}
-                toast={toast}
-              />
+              <ClearButton toast={toast}/>
+              <FileNameSortButton sortProcess={sortProcess} toast={toast}/>
+              <CopyAllTextButton toast={toast}/>
+              <ListButton toast={toast}/>
             </div>
           </div>
         </div>

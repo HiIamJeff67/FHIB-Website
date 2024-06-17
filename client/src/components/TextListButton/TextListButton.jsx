@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from "prop-types";
 
 import { isFilesOrContextsListed, eliminateContextListSign, getContextListSign } from "../../actions/fileSorter.js";
@@ -7,14 +7,18 @@ import { IoList } from "react-icons/io5";
 import { MdOutlineClear } from "react-icons/md";
 import "./TextListButton.css";
 
+import { FileSorterContext } from '../../context/FileSorterContext.jsx';
+
 const TextListButton = ({
-	inputText,
-	setInputText,
-	setProcessedData,
-	setUploadFiles,
-	setOnTypeMode,
 	toast
 }) => {
+	
+	const {
+		inputText, setInputText,
+		setProcessedData,
+		setUploadFiles,
+		setOnTypeMode
+	} = useContext(FileSorterContext);
 	const [isList, setIsList] = useState(false);
 
 	useEffect(() => {
@@ -32,35 +36,23 @@ const TextListButton = ({
 		return isFilesOrContextsListed(unprocessedContexts);
 	}
 
-	// make sure this will only be execute when text is listed
-	const eliminateTextListNumber = function(context) {
-		if (!checkTextIsListed(context)) {
-			toast.error("Cannot eliminate unListed context");
-			return;
-		}
-		let newContexts = [] = eliminateContextListSign(context);
-
-		setProcessedData(newContexts);
-		setUploadFiles(newContexts);
-	}
-
-	// make sure this will only be execute when text is not listed
-	const getTextListNumber = function(context) {
-		if (checkTextIsListed(context)) {
-			toast.error("Context invalid form!");
-			return;
-		}
-
-		let newContexts = getContextListSign(context);
-		setProcessedData(newContexts);
-		setUploadFiles(newContexts);
-	}
-
-	const handleClickDeListButton = function() {
+	const handleClickTextListButton = async function() {
 		if (checkTextIsListed(inputText)) {
-			eliminateTextListNumber(inputText);
+			let newContexts = [] = eliminateContextListSign(inputText);
+			if (newContexts === undefined || newContexts.length === 0) {
+				toast.error("There's No Contexts to Delistificate!")
+				return;
+			}
+			setProcessedData(newContexts);
+			setUploadFiles(newContexts);
 		} else {
-			getTextListNumber(inputText);
+			let newContexts = getContextListSign(inputText);
+			if (newContexts === undefined || newContexts.length === 0) {
+				toast.error("There's No Contexts to Listificate!")
+				return;
+			}
+			setProcessedData(newContexts);
+			setUploadFiles(newContexts);
 		}
 		setInputText("");
 		setIsList(!isList);
@@ -68,8 +60,7 @@ const TextListButton = ({
 	}
 
   return (
-    <button className='text-list-btn'
-						onClick={handleClickDeListButton}>
+    <button className='text-list-btn' onClick={handleClickTextListButton}>
 			{!isList
 				? <><IoList /><p>List</p></>
 				: <><MdOutlineClear /><p>DeList</p></>}
@@ -77,13 +68,9 @@ const TextListButton = ({
   )
 }
 
-TextListButton.propTypes = {
-	inputText: PropTypes.string,
-	setInputText: PropTypes.func,
-	setProcessedData: PropTypes.func,
-	setUploadFiles: PropTypes.func,
-	setOnTypeMode: PropTypes.func,
-	toast: PropTypes.func
-}
+// TextListButton.propTypes = {
+// 	sortProcess: PropTypes.func,
+// 	toast: PropTypes.func
+// }
 
 export default TextListButton;

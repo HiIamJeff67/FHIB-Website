@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from "prop-types";
 
 import { copyToClipboard } from '../../actions/copyToClipboard';
@@ -7,10 +7,13 @@ import { IoIosCopy } from "react-icons/io";
 import { IoCheckmarkSharp } from 'react-icons/io5';
 import "./CopyAllTextButton.css";
 
+import { FileSorterContext } from '../../context/FileSorterContext';
+
 const CopyAllTextButton = ({
-	processedData,
 	toast
 }) => {
+
+  const { processedData } = useContext(FileSorterContext);
 	const [isCopyAll, setIsCopyAll] = useState(false);
 
 	const handleCopyAllButtonClick = async () => {
@@ -39,7 +42,6 @@ const CopyAllTextButton = ({
 }
 
 CopyAllTextButton.propTypes = {
-	processedData: PropTypes.array,
 	toast: PropTypes.func
 }
 

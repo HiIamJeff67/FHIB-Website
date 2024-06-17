@@ -41,6 +41,7 @@ const TextListButton = ({
 			toast.error("There's No Context to List or Delist!")
 			return;
 		}
+		console.log("inputing: ", inputText);
 		if (checkTextIsListed(inputText)) {
 			let newContexts = [] = eliminateContextListSign(inputText);
 			setProcessedData(newContexts);

@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/FHIB-Website/static/css/main.3f308698.css",
-    "main.js": "/FHIB-Website/static/js/main.a9c65c75.js",
+    "main.js": "/FHIB-Website/static/js/main.7c53bd9c.js",
     "static/media/homeBgImgae.png": "/FHIB-Website/static/media/homeBgImgae.d544b7f892dabf352d09.png",
     "static/media/bgImage.png": "/FHIB-Website/static/media/bgImage.ee8c336c7149ed5868f8.png",
     "index.html": "/FHIB-Website/index.html",
     "main.3f308698.css.map": "/FHIB-Website/static/css/main.3f308698.css.map",
-    "main.a9c65c75.js.map": "/FHIB-Website/static/js/main.a9c65c75.js.map"
+    "main.7c53bd9c.js.map": "/FHIB-Website/static/js/main.7c53bd9c.js.map"
   },
   "entrypoints": [
     "static/css/main.3f308698.css",
-    "static/js/main.a9c65c75.js"
+    "static/js/main.7c53bd9c.js"
   ]
 }

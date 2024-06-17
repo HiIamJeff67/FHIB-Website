@@ -37,20 +37,16 @@ const TextListButton = ({
 	}
 
 	const handleClickTextListButton = async function() {
+		if (!inputText || inputText === undefined || inputText.length === 0) {
+			toast.error("There's No Context to List or Delist!")
+			return;
+		}
 		if (checkTextIsListed(inputText)) {
 			let newContexts = [] = eliminateContextListSign(inputText);
-			if (newContexts === undefined || newContexts.length === 0) {
-				toast.error("There's No Contexts to Delistificate!")
-				return;
-			}
 			setProcessedData(newContexts);
 			setUploadFiles(newContexts);
 		} else {
 			let newContexts = getContextListSign(inputText);
-			if (newContexts === undefined || newContexts.length === 0) {
-				toast.error("There's No Contexts to Listificate!")
-				return;
-			}
 			setProcessedData(newContexts);
 			setUploadFiles(newContexts);
 		}
